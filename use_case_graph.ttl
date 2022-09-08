@@ -1,0 +1,101 @@
+PREFIX ex-intent: <https://data.example.com/intent/>
+PREFIX ex-action: <https://data.example.com/action/>
+PREFIX ex-action-effect: <https://data.example.com/actionEffect/>
+PREFIX ex-goal: <https://data.example.com/goal/>
+PREFIX ex-metric: <https://data.example.com/metric/>
+PREFIX ex-metric-query: <https://data.example.com/metricQuery/>
+PREFIX ex-result-set: <https://data.example.com/resultSet/>
+PREFIX ex-result: <https://data.example.com/result/>
+PREFIX pmo: <https://alex-randles.github.io/Prometheus-Metric-Ontology/>  
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex-metric:0 a pmo:Metric ;
+    pmo:hasInstance "localhost:3905" ;
+    pmo:hasJob "rapp" ;
+    pmo:hasName "downlink_throughput" ;
+    pmo:hasQueryInformation ex-metric-query:0 ;
+    pmo:hasResultSet ex-result-set:0 ;
+    pmo:hasUnit "kbit/s" .
+ 
+ex-metric-query:0 a pmo:MetricQuery ;
+    pmo:hasQuery "downlink_throughput" ;
+    pmo:hasResultStatus "success" ;
+    pmo:hasResultType "vector" . 
+ 
+ex-result-set:0 a pmo:MetricResultSet ;
+    pmo:hasResult ex-result:0 .
+ 
+ex-result:0 a pmo:MetricResult ;
+    pmo:hasTimestamp "2022-08-02 17:48:23"^^xsd:dateTime ;
+    pmo:hasValue 7010 .
+
+ex-intent:0 a pmo:Intent;
+       pmo:hasIntentName "Maintain throughput between a specific threshold";
+       pmo:hasIntentDescription "Maintain downlink throughput at 6900-7000";                                           
+       pmo:hasGoal ex-goal:0, ex-goal:1 .             
+
+
+ex-goal:0 a pmo:MetricGoal ;
+    pmo:hasComparisonOperator ">=" ;
+    pmo:hasGoalValue 6900;
+    pmo:hasValidationInterval "15s"^^xsd:duration ;
+    pmo:isSatisfied "false"^^xsd:boolean;
+    pmo:isMaintainedBy ex-action-effect:2; 
+    pmo:targetsMetric ex-metric:0 . 
+
+ex-goal:1 a pmo:MetricGoal ;
+    pmo:hasComparisonOperator "<=" ;
+    pmo:hasGoalValue 7000;
+    pmo:hasValidationInterval "15s"^^xsd:duration ;
+    pmo:isSatisfied "false"^^xsd:boolean;
+    pmo:isMaintainedBy ex-action-effect:2; 
+    pmo:targetsMetric ex-metric:0 .
+
+ex-action:0 a pmo:Action ;
+    pmo:hasActionName "Increase throughput" ;
+    pmo:hasDescription "Increase the amount of downlink throughput." ;
+    pmo:hasEffect ex-action-effect:0 ;
+    pmo:hasOperation """POST https://request-ordering
+     ""property1"":""value1"",
+     }""" .
+ 
+ex-action-effect:0 a pmo:ActionEffect ;
+    pmo:effectsMetric ex-metric:0 ;
+    pmo:hasConfidence "0.65" .
+ex-action:1 a pmo:Action ;
+    pmo:hasActionName "Decrease throughput" ;
+    pmo:hasDescription "Decrease the amount of downlink throughput." ;
+    pmo:hasEffect ex-action-effect:1 ;
+    pmo:hasOperation """POST https://request-ordering
+     ""property1"":""value1"",
+     }""" .
+ 
+ex-action-effect:1 a pmo:ActionEffect ;
+    pmo:effectsMetric ex-metric:0 ;
+    pmo:hasConfidence "0.59" .
+ex-action:2 a pmo:Action ;
+    pmo:hasActionName "No operation" ;
+    pmo:hasDescription "Do not execute an operation." ;
+    pmo:hasEffect ex-action-effect:2 ;
+    pmo:hasOperation """POST https://request-ordering
+     ""property1"":""value1"",
+     }""" .
+ 
+ex-action-effect:2 a pmo:ActionEffect ;
+    pmo:effectsMetric ex-metric:0 ;
+    pmo:hasConfidence "0.85" .
+ex-action:3 a pmo:Action ;
+    pmo:hasActionName "Increase power" ;
+    pmo:hasDescription "Increase power provided for throughput." ;
+    pmo:hasEffect ex-action-effect:3 ;
+    pmo:hasOperation """POST https://request-ordering
+     ""property1"":""value1"",
+     }""" .
+ 
+ex-action-effect:3 a pmo:ActionEffect ;
+    pmo:effectsMetric ex-metric:0 ;
+    pmo:hasConfidence "0.29" .
+
+
+
+
