@@ -1,0 +1,44 @@
+PREFIX ex-intent: <https://data.example.com/intent/>
+PREFIX ex-action: <https://data.example.com/action/>
+PREFIX ex-action-effect: <https://data.example.com/actionEffect/>
+PREFIX ex-goal: <https://data.example.com/goal/>
+PREFIX ex-metric: <https://data.example.com/metric/>
+PREFIX ex-metric-query: <https://data.example.com/metricQuery/>
+PREFIX ex-result-set: <https://data.example.com/resultSet/>
+PREFIX ex-result: <https://data.example.com/result/>
+PREFIX pmo: <https://alex-randles.github.io/Prometheus-Metric-Ontology/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+ex-metric:0 a pmo:Metric ;
+            pmo:hasQueryInformation ex-metric-query:0 ;
+            pmo:hasResultSet ex-result-set:0 ;
+.
+
+ex-metric-query:0 a pmo:MetricQuery .
+
+ex-result-set:0 a pmo:MetricResultSet ;
+                pmo:hasResult ex-result:0 .
+
+ex-result:0 a pmo:MetricResult .
+
+ex-intent:0 a pmo:Intent;
+            pmo:hasGoal ex-goal:0, ex-goal:1 .
+
+
+ex-goal:0 a pmo:MetricGoal ;
+          pmo:isMaintainedBy ex-action-effect:2;
+          pmo:targetsMetric ex-metric:0 .
+
+
+ex-action:0 a pmo:Action ;
+            pmo:hasEffect ex-action-effect:0 ;
+.
+
+ex-action-effect:0 a pmo:ActionEffect ;
+                   pmo:effectsMetric ex-metric:0 ;
+.
+
+
+
+
+
