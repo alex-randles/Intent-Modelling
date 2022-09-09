@@ -24,7 +24,9 @@ for intent_number, intent in intents.items():
     intent_description = intent.get("intent_description")
     print("Intent name: ", intent_name)
     print("Intent description: ", intent_description)
-    banner = "*" * (len(intent_name) + 1)
+    banner = "*" * (len(intent_description) + 22)
+    print(banner)
+    print("Executing Actions.....")
     print(banner)
     i = 0
     goals = intent.get("goals")

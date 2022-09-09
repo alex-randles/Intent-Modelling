@@ -1,0 +1,9 @@
+PREFIX ex-metric: <https://data.example.com/metric/> 
+PREFIX : <https://alex-randles.github.io/Prometheus-Metric-Ontology/>  
+
+SELECT ?goalReached ?value
+WHERE {   ex-metric:0 a :Metric;
+          :hasResultSet ?resultSet .
+          ?resultSet :hasResult ?result .
+          ?result :hasValue ?value .
+ BIND (?value >= 6900 AS ?goalReached)}
