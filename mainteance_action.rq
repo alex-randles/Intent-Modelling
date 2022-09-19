@@ -1,4 +1,6 @@
-PREFIX ex-metric: <https://data.example.com/metric/> 
+PREFIX ex-intent: <https://data.example.com/intent/> 
+PREFIX ex-goal: <https://data.example.com/goal/> 
+PREFIX ex-action-effect: <https://data.example.com/actionEffect/> 
 PREFIX : <https://alex-randles.github.io/Prometheus-Metric-Ontology/>  
 
 SELECT ?goal ?action
