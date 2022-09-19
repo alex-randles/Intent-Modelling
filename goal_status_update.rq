@@ -1,0 +1,8 @@
+PREFIX : <https://alex-randles.github.io/Prometheus-Metric-Ontology/>  
+
+DELETE { ?goal :isSatisfied ?goalSatisifed }
+INSERT { ?goal :isSatisfied “true”^^xsd:boolean }
+WHERE  {  
+	?goal a :Goal ; 
+		 :isSatisfied ?goalSatisifed . 
+}
