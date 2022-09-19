@@ -1,0 +1,9 @@
+PREFIX ex-metric: <https://data.example.com/metric/> 
+PREFIX : <https://alex-randles.github.io/Prometheus-Metric-Ontology/>  
+
+SELECT ?goal ?action
+WHERE { 
+	ex-intent:0 a :Intent;
+            :hasGoal ?goal .
+    ?goal :isMaintainedBy ?action . 
+}
