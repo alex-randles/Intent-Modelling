@@ -1,8 +1,8 @@
-PREFIX pmo: <https://alex-randles.github.io/Prometheus-Metric-Ontology/> 
+PREFIX : <https://alex-randles.github.io/Prometheus-Metric-Ontology/> 
 PREFIX ex-intent: <https://data.example.com/intent/>
 
 SELECT ?goal 
 WHERE {
-  ex-intent:0 a pmo:Intent;
-              pmo:hasGoal ?goal .
+  ex-intent:0 a :Intent;
+              :hasGoal ?goal .
 }
